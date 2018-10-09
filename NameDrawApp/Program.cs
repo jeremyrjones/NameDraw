@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NameDrawApp
+namespace jones.jeremy.namedraw
 {
     class Program
     {
