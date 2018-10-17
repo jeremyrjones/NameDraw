@@ -4,7 +4,9 @@ using System.Text;
 
 namespace jones.jeremy.namedraw
 {
-    class Person
+    internal class Person
     {
+        internal string Name;
+        internal string EmailAddress;
     }
 }

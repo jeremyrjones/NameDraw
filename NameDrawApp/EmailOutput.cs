@@ -4,7 +4,11 @@ using System.Text;
 
 namespace jones.jeremy.namedraw
 {
-    class EmailOutput : INameDrawOutput
+    internal class EmailOutput : INameDrawOutput
     {
+        public void OutputResult(IList<NameDrawResult> DrawResults)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

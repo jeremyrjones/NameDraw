@@ -4,7 +4,10 @@ using System.Text;
 
 namespace jones.jeremy.namedraw
 {
-    class ExclusionDrawRule : IDrawRule
+    internal class ExclusionDrawRule : DrawRule
     {
+        protected internal ExclusionDrawRule(Person from, Person to) : base(from, to, Rule.Exclude)
+        {
+        }
     }
 }

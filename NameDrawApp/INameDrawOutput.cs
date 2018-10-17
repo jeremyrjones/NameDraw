@@ -4,7 +4,8 @@ using System.Text;
 
 namespace jones.jeremy.namedraw
 {
-    interface INameDrawOutput
+    internal interface INameDrawOutput
     {
+        void OutputResult(IList<NameDrawResult> DrawResults);
     }
 }

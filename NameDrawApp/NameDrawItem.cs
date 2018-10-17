@@ -4,7 +4,9 @@ using System.Text;
 
 namespace jones.jeremy.namedraw
 {
-    class NameDrawItem
+    internal class NameDrawItem
     {
+        internal decimal ItemAmount { get; set; }
+        internal string Description { get; set; }
     }
 }

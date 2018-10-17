@@ -4,7 +4,10 @@ using System.Text;
 
 namespace jones.jeremy.namedraw
 {
-    class NameDrawResult
+    internal class NameDrawResult
     {
+        internal Person From { get; set; }
+        internal Person To { get; set; }
+        internal NameDrawItem Item { get; set; }
     }
 }
