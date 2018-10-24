@@ -6,7 +6,7 @@ namespace jones.jeremy.namedraw
 {
     internal class Person
     {
-        internal string Name;
-        internal string EmailAddress;
+        internal string Name { get; set; }
+        internal string EmailAddress { get; set; }
     }
 }

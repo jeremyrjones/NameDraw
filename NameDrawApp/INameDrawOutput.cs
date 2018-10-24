@@ -6,6 +6,6 @@ namespace jones.jeremy.namedraw
 {
     internal interface INameDrawOutput
     {
-        void OutputResult(IList<NameDrawResult> DrawResults);
+        void OutputResult(IList<NameDrawResult> drawResults);
     }
 }

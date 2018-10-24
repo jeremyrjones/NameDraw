@@ -5,26 +5,43 @@ using System.Text;
 
 namespace jones.jeremy.namedraw
 {
-    internal class NameDrawEvent
+    internal static class NameDrawEvent
     {
-        internal NameDrawConfig DrawConfig { get; set; }
-        internal IList<NameDrawResult> DrawResults { get; private set; }
-
-        internal void ExecuteNameDraw()
+        internal static NameDrawConfig CreateNameDrawConfig(
+            IList<Person> persons,
+            IList<DrawRule> drawRules,
+            IList<NameDrawItem> nameDrawItems,
+            DateTime nameDrawDateTime,
+            string nameDrawDescription,
+            IList<INameDrawOutput> outputProviders)
         {
-            PopulateResults();
-            OutputResults();
+            return new NameDrawConfig
+            {
+                Participants = persons,
+                DrawRules = drawRules,
+                Items = nameDrawItems,
+                NameDrawDateTime = nameDrawDateTime,
+                NameDrawDescription = nameDrawDescription,
+                OutputProviders = outputProviders
+            };
         }
 
-        private void PopulateResults()
+        internal static IList<NameDrawResult> ExecuteNameDraw(NameDrawConfig config)
         {
-            var participants = DrawConfig.Participants;
+            var result = ExecuteDraw(config);
+            OutputResult(result, config.OutputProviders);
+            return result;
+        }
+
+        private static IList<NameDrawResult> ExecuteDraw(NameDrawConfig config)
+        {
+            var participants = config.Participants;
             IList<NameDrawResult> result = new List<NameDrawResult>();
 
             // TODO: refine this algorithm, and implement inclusions and exclusions
             // TODO: don't allow self to be drawn
 
-            foreach (var item in DrawConfig.Items)
+            foreach (var item in config.Items)
             {
                 // execute draw for this item
 
@@ -46,14 +63,14 @@ namespace jones.jeremy.namedraw
                 }
             }
 
-            DrawResults = result;
+            return result;
         }
 
-        private void OutputResults()
+        private static void OutputResult(IList<NameDrawResult> results, IList<INameDrawOutput> outputProviders)
         {
-            foreach (var outputProvider in DrawConfig.OutputProviders)
+            foreach (var outputProvider in outputProviders)
             {
-                outputProvider.OutputResult(DrawResults);
+                outputProvider.OutputResult(results);
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace jones.jeremy.namedraw
 {
@@ -16,41 +17,54 @@ namespace jones.jeremy.namedraw
             Person person4 = new Person { EmailAddress = "person4@test.com", Name = "person4" };
             Person person5 = new Person { EmailAddress = "person5@test.com", Name = "person5" };
 
-            NameDrawConfig nameDrawConfig = new NameDrawConfig();
-
-            // add participants
-            nameDrawConfig.Participants.Add(person1);
-            nameDrawConfig.Participants.Add(person2);
-            nameDrawConfig.Participants.Add(person3);
-            nameDrawConfig.Participants.Add(person4);
-            nameDrawConfig.Participants.Add(person5);
+            IList<Person> persons = new List<Person>
+            {
+                person1,
+                person2,
+                person3,
+                person4,
+                person5
+            };
 
             // TODO: draw rules are not yet implemented
             // add draw rules (person1 must draw person3; person2 must not draw person4)
-            DrawRule includeDrawRule = new InclusionDrawRule( person1, person3);
-            DrawRule excludeDrawRule = new ExclusionDrawRule( person2, person4);
-            nameDrawConfig.DrawRules.Add(includeDrawRule);
-            nameDrawConfig.DrawRules.Add(excludeDrawRule);
+            IList<DrawRule> drawRules = new List<DrawRule>
+            {
+                new InclusionDrawRule(person1, person3),
+                new ExclusionDrawRule(person2, person4)
+            };
 
             // add items
-            NameDrawItem item1 = new NameDrawItem {ItemAmount = 20};
-            NameDrawItem item2 = new NameDrawItem {ItemAmount = 10};
-            nameDrawConfig.Items.Add(item1);
-            nameDrawConfig.Items.Add(item2);
+            IList<NameDrawItem> nameDrawItems = new List<NameDrawItem>
+            {
+                new NameDrawItem {ItemAmount = 20},
+                new NameDrawItem {ItemAmount = 10}
+            };
 
             // set the date and time
-            nameDrawConfig.NameDrawDateTime = new DateTime(2018, 12, 25, 12, 0, 0);
+            DateTime nameDrawDateTime = new DateTime(2018, 12, 25, 12, 0, 0);
 
             // add an event description
-            nameDrawConfig.NameDrawDescription = "Meet at person1's house";
+            string nameDrawDescription = "Meet at person1's house";
 
             // configure output providers for the results of the name draw selections
             // TODO: try to get an email provider working
             ConsoleOutput consoleOutput = new ConsoleOutput();
-            nameDrawConfig.OutputProviders.Add(consoleOutput);
 
-            NameDrawEvent nameDrawEvent = new NameDrawEvent {DrawConfig = nameDrawConfig};
-            nameDrawEvent.ExecuteNameDraw();
+            IList<INameDrawOutput> outputProviders = new List<INameDrawOutput>
+            {
+                consoleOutput
+            };
+
+            var nameDrawConfig = NameDrawEvent.CreateNameDrawConfig(
+                persons, 
+                drawRules, 
+                nameDrawItems, 
+                nameDrawDateTime, 
+                nameDrawDescription,
+                outputProviders);
+
+            NameDrawEvent.ExecuteNameDraw(nameDrawConfig);
         }
     }
 }
