@@ -26,7 +26,6 @@ namespace jones.jeremy.namedraw
                 person5
             };
 
-            // TODO: draw rules are not yet implemented
             // add draw rules (person1 must draw person3; person2 must not draw person4)
             IList<DrawRule> drawRules = new List<DrawRule>
             {
@@ -65,6 +64,17 @@ namespace jones.jeremy.namedraw
                 outputProviders);
 
             NameDrawEvent.ExecuteNameDraw(nameDrawConfig);
+
+            // to show that each name draw config has a unique id
+            var nameDrawConfig2 = NameDrawEvent.CreateNameDrawConfig(
+                persons,
+                drawRules,
+                nameDrawItems,
+                nameDrawDateTime,
+                nameDrawDescription,
+                outputProviders);
+
+            NameDrawEvent.ExecuteNameDraw(nameDrawConfig2);
         }
     }
 }

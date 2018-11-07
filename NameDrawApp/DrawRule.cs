@@ -2,15 +2,15 @@
 {
     internal abstract class DrawRule
     {
-        protected enum Rule
+        protected internal enum Rule
         {
             Exclude,
             Include
         }
 
-        Person From { get; set; }
-        Person To { get; set; }
-        Rule RuleType { get; set; }
+        internal Person From { get; set; }
+        internal Person To { get; set; }
+        internal Rule RuleType { get; set; }
 
         protected DrawRule(Person from, Person to, Rule rule)
         {
